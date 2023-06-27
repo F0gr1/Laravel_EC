@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\OwnerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('admin.welcome');
 });
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth:admin', 'verified'])->name('dashboard');
@@ -67,6 +67,8 @@ Route::middleware('auth:admin')->group(function () {
     // Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
     //             ->middleware(['signed', 'throttle:6,1'])
     //             ->name('verification.verify');
+
+    Route::resource('owners', OwnerController::class);
 
     Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
                 ->middleware('throttle:6,1')
