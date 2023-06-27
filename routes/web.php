@@ -27,7 +27,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('user.dashboard');
+    return view('dashboard');
 })->middleware(['auth:users', 'verified'])->name('dashboard');
 
 Route::middleware('auth:users')->group(function () {
@@ -36,25 +36,28 @@ Route::middleware('auth:users')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+    Route::get('register', [RegisteredUserController::class, 'create'])
+                ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
+                
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
-                ->name('users.login');
+                ->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
-                ->name('users.password.request');
+                ->name('password.request');
 
     Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
-                ->name('users.password.email');
+                ->name('password.email');
 
     Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
-                ->name('users.password.reset');
+                ->name('password.reset');
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
-                ->name('users.password.store');
+                ->name('password.store');
 
 Route::middleware(['auth:users'])->group(function () {
     // Route::get('verify-email', EmailVerificationPromptController::class)
