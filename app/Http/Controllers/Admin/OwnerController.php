@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\Owner;
+use Carbon\Carbon;
 class OwnerController extends Controller
 {
     public function __construct()
@@ -16,7 +17,11 @@ class OwnerController extends Controller
      */
     public function index()
     {
-        dd('オーナー一覧');
+        $owners = Owner::all();
+
+        return view('admin.owners.index',
+                compact('owners')
+        );
     }
 
     /**
@@ -24,7 +29,7 @@ class OwnerController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.owners.create');
     }
 
     /**
