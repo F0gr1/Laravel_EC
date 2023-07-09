@@ -10,7 +10,6 @@ use App\Http\Controllers\Owner\Auth\PasswordController;
 use App\Http\Controllers\Owner\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Owner\Auth\RegisteredUserController;
 use App\Http\Controllers\Owner\Auth\VerifyEmailController;
-use App\Http\Controllers\Owner\Owner\OwnerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +30,6 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('owner.dashboard');
 })->middleware(['auth:owners', 'verified'])->name('dashboard');
-Route::resource('owner', OwnerController::class)->middleware('auth:owners');
 Route::middleware('auth:owners')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

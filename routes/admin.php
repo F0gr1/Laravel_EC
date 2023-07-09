@@ -36,6 +36,10 @@ Route::middleware('auth:admin')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::prefix('expired-owners')->middleware('auth:admin')->group(function(){
+        Route::get('index',[OwnerController::class,'expiredOwnerIndex'])->name('expired-owners.index');
+        Route::post('destroy/{owner}',[OwnerController::class,'expiredOwnerDestory'])->name('expired-owners.destroy');
+    });
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
